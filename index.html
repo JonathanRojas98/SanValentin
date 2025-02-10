@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Hecho para mobile first -->
+    <title>Página Interactiva</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-image: url('./sources/background.jpg'); /* Imagen de fondo en la subcarpeta sources */
+            background-size: cover; /* Ajusta la imagen para cubrir toda la pantalla */
+            background-position: center; /* Centra la imagen de fondo */
+        }
+        img {
+            width: 300px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            background-color: hotpink;
+            border-radius: 10px;
+            border: 0cap;
+        }
+        p {
+            background-color: rgba(255, 255, 255, 0.5);
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <img id="image" src="./sources/image1.gif" alt="Imagen">
+    <p id="text">Hola mi amor, sé que ha pasado tiempo desde que estoy lejos de casita, pero te necesito y me haces muy feliz. Te hago este pequeño detalle porque por fin tuve tiempo jaja y porque te amo muchísimo. Quiero decirte que te amo demasiado, demasiado mi amor!
+    </p>
+    <button id="next">Siguiente</button>
+    <div id="question" style="display: none;">
+        <img id="question-image" src="./sources/question.gif" alt="Imagen de pregunta"/>
+        <p>¿Quieres ser mi San Valentín?</p>
+        <button id="yes">Sí</button>
+        <button id="no">No</button>
+    </div>
+    <div id="final-message" style="display: none;">
+        <img id="final-image" src="./sources/yes1.gif" alt="Imagen final">
+        <p>¡¡¡TE AMOOOOO!!! ¡¡¡¡¡Gracias por ser mi San Valentín!!!!!</p>
+    </div>
+    <script>
+        const texts = [
+            "Hola mi amor, sé que ha pasado tiempo desde que estoy lejos de casita, pero te necesito y me haces muy feliz. Te hago este pequeño detalle porque por fin tuve tiempo jaja y porque te amo muchísimo. Quiero decirte que te amo demasiado, demasiado mi amor!"
+            , "Quiero pedirte perdón también por estar tan lejos y sobre todo cuando se acercan 2 fechas importantes, el 14 y el 16 de febrero. Pero no importa, la distancia no quitara que te demuestre lo mucho que te amo!"
+            , "He estado contigo ya casi 4 años, ya falta muy poquito... y quiero decirte que mi vida jamás tendría sentido sin ti, que me haces inmensamente feliz y que siempre siempre estaré a tu lado. TÚ Y YO JUNTOS SIEMPRE EN ESTA VIDA."
+            , "Tenemos sueños y metas por cumplir, pero también tenemos sueños y metas que ya cumplimos. TE AMO TE AMO TE AMO, espero tengas una sonrisita ahorita mismo. Pronto regreso, pero quiero hacerte una preguntita coqueta..."
+        ];
+        const images = ["./sources/image1.gif", "./sources/image2.gif", "./sources/image3.gif", "./sources/image4.gif"];
+        const sadImages = ["./sources/sad1.gif", "./sources/sad2.gif", "./sources/sad3.gif", "./sources/sad4.gif", "./sources/sad5.gif", "./sources/sad6.gif", "./sources/sad7.gif"];
+        let index = 0;
+        let sadIndex = 0;
+        
+        document.getElementById("next").addEventListener("click", function() {
+            index++;
+            if (index < texts.length) {
+                document.getElementById("text").innerText = texts[index];
+                document.getElementById("image").src = images[index];
+            } else {
+                // Oculta los elementos de la secuencia y muestra la pregunta
+                document.getElementById("text").style.display = "none";
+                document.getElementById("image").style.display = "none";
+                document.getElementById("next").style.display = "none";
+                document.getElementById("question").style.display = "block";
+            }
+        });
+        
+        const noResponses = ["¿Segura que no? :(", "¿De verdad?", "¿Estás completamente segura?", "Haz click en el si!!", "No te pases de lanza", "Ándale, ya dale click en el SIIII", "Ya no me quieres? :'(", "Pedorra"];
+        document.getElementById("no").addEventListener("click", function() {
+            let yesButton = document.getElementById("yes");
+            yesButton.style.fontSize = (parseInt(window.getComputedStyle(yesButton).fontSize) + 4) + "px"; // Incrementa el tamaño del botón "Sí"
+            document.getElementById("no").innerText = noResponses[Math.floor(Math.random() * noResponses.length)]; // Selecciona un texto aleatorio para "No"
+            document.getElementById("question-image").src = sadImages[Math.floor(Math.random() * sadImages.length)]; // Cambia la imagen a una triste
+            sadIndex++;
+        });
+
+        document.getElementById("yes").addEventListener("click", function() {
+            document.getElementById("question").style.display = "none";
+            document.getElementById("final-message").style.display = "block"; // Muestra imagen y mensaje final
+        });
+    </script>
+</body>
+</html>
